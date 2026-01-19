@@ -23,9 +23,13 @@ if uploaded_file:
     annotated = r.plot()
     st.image(annotated, caption="Predictions", use_column_width=True)
 
-    # Detection summary (object names only, no numbers)
+    # Detection summary (unique object names only)
     st.subheader("Detection Summary")
+    detected_labels = set()
     for box in r.boxes:
         cls_id = int(box.cls[0])
         label = r.names[cls_id]
+        detected_labels.add(label)
+
+    for label in sorted(detected_labels):
         st.write(label)
