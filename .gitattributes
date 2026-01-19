@@ -1,1 +1,20 @@
-*.pt filter=lfs diff=lfs merge=lfs -text
+# Handle line endings consistently
+* text=auto
+
+# Treat Python files as text
+*.py text diff
+
+# Treat Markdown and text files as text
+*.md text
+*.txt text
+
+# Use Git LFS for large model weights
+*.pt filter=lfs diff=lfs merge=lfs
+
+# Ensure YAML files are text
+*.yaml text
+
+# Ignore binary files for diff
+*.png binary
+*.jpg binary
+*.jpeg binary
