@@ -1,0 +1,14 @@
+path: D:/ml2/data/preprocessed
+
+train: train/images
+val: valid/images
+test: test/images
+
+names:
+  [0: OxygenTank,
+  1: NitrogenTank ,
+  2: FirstAidBox ,
+  3: FireAlarm , 
+  4: SafetySwitchPanel ,
+  5: EmergencyPhone ,
+  6: FireExtinguisher  ]
