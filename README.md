@@ -1,4 +1,8 @@
-# Space Safety Object Detection 🚀
+# 🚀 Space Safety Object Detection
+Detect safety-related objects (helmets, vests, restricted items) using YOLOv8 and Streamlit.
+
+## 🔗 Live Demo
+[Click here to try the app](https://space-safety-object-detection-ksbwdfdkrr78cpywp6yztb.streamlit.app/)
 
 ## Overview
 This project demonstrates **real-time safety object detection** using **YOLOv8** integrated with a **Streamlit app**.  
