@@ -2,34 +2,37 @@ import streamlit as st
 from ultralytics import YOLO
 from PIL import Image
 import numpy as np
+from collections import Counter
 
-# Title
-st.title("🚀 Space Safety Object Detection")
-st.write("Detect safety-related objects (helmets, vests, restricted items) using YOLOv8 + Streamlit.")
+st.title("🚀 Space Station Safety Object Detection")
 
-# Load YOLOv8 model (pretrained weights auto-download)
+# Load YOLOv8 model (replace with your custom weights if needed)
 model = YOLO("yolov8n.pt")
 
-# Confidence threshold slider
-conf_threshold = st.slider("Confidence Threshold", 0.0, 1.0, 0.25)
-
-# File uploader
+# Image uploader
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
-if uploaded_file is not None:
-    # Open image
+if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
-    # Run prediction
-    results = model.predict(source=np.array(image), conf=conf_threshold, save=False)
+    # Run prediction (default confidence threshold from YOLO)
+    results = model.predict(source=np.array(image), save=False)
+    r = results[0]
 
-    # Show results
-    st.subheader("Detection Results")
-    for r in results:
-        st.write(r.names)  # class names
-        st.write(r.boxes)  # bounding boxes
+    # Count detections
+    class_counts = Counter()
+    for box in r.boxes:
+        cls_id = int(box.cls[0])
+        label = r.names[cls_id]
+        class_counts[label] += 1
 
-    # Render annotated image
-    annotated_frame = results[0].plot()  # numpy array with boxes drawn
-    st.image(annotated_frame, caption="Predictions", use_column_width=True)
+    # Show annotated image
+    annotated = r.plot()
+    st.image(annotated, caption="Predictions", use_column_width=True)
+
+    # Detection summary (formatted like [1]: ClassName -> Count)
+    st.subheader("Detection Summary")
+    for i, (label, count) in enumerate(class_counts.items(), start=1):
+        st.write(f"[{i}]: {label} -> {count}")
+    st.write(f"Total objects detected: {sum(class_counts.values())}")
