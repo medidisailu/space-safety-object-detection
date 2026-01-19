@@ -1,5 +1,5 @@
 # 🚀 Space Safety Object Detection
-Detect safety-related objects (helmets, vests, restricted items) using YOLOv8 and Streamlit.
+Detect safety-related objects (OxygenTank,NitrogenTank ,FirstAidBox ,FireAlarm ,SafetySwitchPanel ,EmergencyPhone ,FireExtinguisher) using YOLOv8 and Streamlit.
 
 ## 🔗 Live Demo
 [Click here to try the app](https://space-safety-object-detection-ksbwdfdkrr78cpywp6yztb.streamlit.app/)
