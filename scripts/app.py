@@ -30,7 +30,7 @@ page_bg = """
 # -----------------------------
 # Load YOLOv8 model (trained weights)
 # -----------------------------
-MODEL_PATH = "D:/ml2/runs/detect/train6/weights/best.pt"
+MODEL_PATH = "runs/detect/train6/weights/best.pt"
 model = YOLO(MODEL_PATH)
 
 # -----------------------------
