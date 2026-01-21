@@ -9,7 +9,7 @@ from ultralytics import YOLO
 page_bg = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-image: url("https://bobscustomtackle.com/wp-content/uploads/emergency-preparedness-fire-extinguishers-and-first-aid-kits1.webp");
+    background-image: url("https://www.vecteezy.com/free-photos/plain-black-background");
     background-size: cover;
     background-position: center;
     position: relative;
