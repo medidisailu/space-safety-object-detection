@@ -7,7 +7,7 @@ model = YOLO("D:/ml2/runs/detect/train/weights/best.pt")
 
 # ✅ Run validation on test split
 metrics = model.val(
-    data="D:/ml2/data/data.yaml",
+    data="D:/ml2/data/preprocessed/data.yaml",
     split="test",
     conf=0.25
 )
