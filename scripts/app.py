@@ -4,31 +4,7 @@ import os
 from ultralytics import YOLO
 
 # -----------------------------
-# Custom background image style with overlay
-# -----------------------------
-page_bg = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-image: url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa");
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-[data-testid="stAppViewContainer"]::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0,0,0,0.4); /* dark overlay for contrast */
-    z-index: -1;
-}
-[data-testid="stHeader"] {
-    background: rgba(0,0,0,0);
-}
-</style>
-"""
-
-# -----------------------------
-# Load YOLOv8 model (trained weights)
+# Load YOLOv8 model
 # -----------------------------
 MODEL_PATH = "runs/detect/train6/weights/best.pt"
 model = YOLO(MODEL_PATH)
@@ -37,7 +13,30 @@ model = YOLO(MODEL_PATH)
 # Streamlit Page Setup
 # -----------------------------
 st.set_page_config(page_title="Space Station Safety Object Detection", layout="centered")
-st.markdown(page_bg, unsafe_allow_html=True)
+st.markdown(
+    """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+    [data-testid="stAppViewContainer"]::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0,0,0,0.4);
+        z-index: -1;
+    }
+    [data-testid="stHeader"] {
+        background: rgba(0,0,0,0);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("🚀 Space Station Safety Object Detection")
 
 # -----------------------------
@@ -46,19 +45,13 @@ st.title("🚀 Space Station Safety Object Detection")
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
-    # Save uploaded file
     os.makedirs("uploads", exist_ok=True)
     image_path = os.path.join("uploads", uploaded_file.name)
     with open(image_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
 
-    # Display uploaded image info
     image = Image.open(image_path)
-    st.image(
-        image,
-        caption=f"{uploaded_file.name} ({image.width} x {image.height}, {uploaded_file.size / 1024:.1f} KB)",
-        width=700
-    )
+    st.image(image, caption=f"{uploaded_file.name}", width=700)
 
     # -----------------------------
     # Run Detection
@@ -80,22 +73,12 @@ if uploaded_file:
 
     if detected_classes:
         for name in sorted(detected_classes):
-            st.markdown(
-                f"<p style='color:#3c3c3c; font-size:28px; font-weight:bold;'>✔ {name}</p>",
-                unsafe_allow_html=True
-            )
-        st.markdown(
-            f"<p style='color:#3c3c3c; font-size:24px; font-weight:bold;'>Total objects detected: {len(detected_classes)} unique classes</p>",
-            unsafe_allow_html=True
-        )
+            st.markdown(f"<p style='color:#3c3c3c; font-size:28px;'>✔ {name}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color:#3c3c3c; font-size:24px;'>Total objects detected: {len(detected_classes)}</p>", unsafe_allow_html=True)
     else:
-        st.markdown(
-            "<p style='color:#3c3c3c; font-size:24px; font-weight:bold;'>⚠️ No safety objects were detected in the uploaded image.</p>",
-            unsafe_allow_html=True
-        )
+        st.markdown("<p style='color:#3c3c3c; font-size:24px;'>⚠️ No safety objects detected.</p>", unsafe_allow_html=True)
         st.markdown("""
         <div style='color:#3c3c3c; font-size:18px;'>
-        Please check the following:<br>
         ✅ Ensure the image clearly shows the object.<br>
         ✅ Use high-resolution images with good lighting.<br>
         ✅ Confirm the object is part of the model’s training classes.<br>
