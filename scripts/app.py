@@ -9,7 +9,7 @@ from ultralytics import YOLO
 page_bg = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-image: url("https://www.vecteezy.com/free-photos/plain-black-background");
+    background-image: url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa");
     background-size: cover;
     background-position: center;
     position: relative;
@@ -73,11 +73,10 @@ if uploaded_file:
         class_name = names[cls_id]
         detected_classes.add(class_name)
 
-   
     # -----------------------------
     # Detection Summary
     # -----------------------------
-    st.markdown("<h2 style='color:#ee82ee;'> Detection Summary</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color:#ee82ee;'>Detection Summary</h2>", unsafe_allow_html=True)
 
     if detected_classes:
         for name in sorted(detected_classes):
@@ -86,9 +85,9 @@ if uploaded_file:
                 unsafe_allow_html=True
             )
         st.markdown(
-    f"<p style='color:#3c3c3c; font-size:24px; font-weight:bold;'>Total objects detected: {len(detected_classes)} unique classes</p>",
-    unsafe_allow_html=True
-)
+            f"<p style='color:#3c3c3c; font-size:24px; font-weight:bold;'>Total objects detected: {len(detected_classes)} unique classes</p>",
+            unsafe_allow_html=True
+        )
     else:
         st.markdown(
             "<p style='color:#3c3c3c; font-size:24px; font-weight:bold;'>⚠️ No safety objects were detected in the uploaded image.</p>",
