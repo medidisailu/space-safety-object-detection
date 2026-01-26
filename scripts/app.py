@@ -82,20 +82,20 @@ if uploaded_file:
     if detected_classes:
         for name in sorted(detected_classes):
             st.markdown(
-                f"<p style='color:#3cb371; font-size:28px; font-weight:bold;'>✔ {name}</p>",
+                f"<p style='color:#3c3c3c; font-size:28px; font-weight:bold;'>✔ {name}</p>",
                 unsafe_allow_html=True
             )
         st.markdown(
-    f"<p style='color:#ffa500; font-size:24px; font-weight:bold;'>Total objects detected: {len(detected_classes)} unique classes</p>",
+    f"<p style='color:#3c3c3c; font-size:24px; font-weight:bold;'>Total objects detected: {len(detected_classes)} unique classes</p>",
     unsafe_allow_html=True
 )
     else:
         st.markdown(
-            "<p style='color:#00ffff; font-size:24px; font-weight:bold;'>⚠️ No safety objects were detected in the uploaded image.</p>",
+            "<p style='color:#3c3c3c; font-size:24px; font-weight:bold;'>⚠️ No safety objects were detected in the uploaded image.</p>",
             unsafe_allow_html=True
         )
         st.markdown("""
-        <div style='color:#ffa500; font-size:18px;'>
+        <div style='color:#3c3c3c; font-size:18px;'>
         Please check the following:<br>
         ✅ Ensure the image clearly shows the object.<br>
         ✅ Use high-resolution images with good lighting.<br>
