@@ -32,7 +32,7 @@ if uploaded_file:
         f.write(uploaded_file.getbuffer())
 
     image = Image.open(image_path)
-    st.image(image, caption=f"{uploaded_file.name}", width=700)
+    st.image(image, caption=f"{uploaded_file.name}", width=300)
 
     # -----------------------------
     # Run Detection
@@ -56,19 +56,9 @@ if uploaded_file:
         for name in sorted(detected_classes):
             st.write(f"✔ {name}")
         st.write(f"**Total objects detected:** {len(detected_classes)}")
-   else:
-    st.markdown(
-        """
-        <div style='color:#3c3c3c; font-size:18px;'>
-        ⚠️ Ensure the image clearly shows the object.<br>
-        ⚠️ Use high-resolution images with good lighting.<br>
-        ⚠️ Confirm the object is part of the model’s training classes.<br>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )else:
-    st.warning(
-        "⚠️ Ensure the image clearly shows the object.\n"
-        "⚠️ Use high-resolution images with good lighting.\n"
-        "⚠️ Confirm the object is part of the model’s training classes."
-    )
+    else:
+        st.warning(
+            "⚠️ Ensure the image clearly shows the object.\n"
+            "⚠️ Use high-resolution images with good lighting.\n"
+            "⚠️ Confirm the object is part of the model’s training classes."
+        )
