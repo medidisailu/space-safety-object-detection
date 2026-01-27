@@ -1,13 +1,13 @@
 import streamlit as st
 from PIL import Image
 import os
-from ultralytics import YOLO
 
-# -----------------------------
-# Load YOLOv8 model
-# -----------------------------
-MODEL_PATH = "runs/detect/train6/weights/best.pt"
-model = YOLO(MODEL_PATH)
+# Lazy load YOLO to avoid import errors on startup
+@st.cache_resource
+def load_model():
+    from ultralytics import YOLO
+    MODEL_PATH = "runs/detect/train6/weights/best.pt"
+    return YOLO(MODEL_PATH)
 
 # -----------------------------
 # Streamlit Page Setup
@@ -56,6 +56,7 @@ if uploaded_file:
     # -----------------------------
     # Run Detection
     # -----------------------------
+    model = load_model()
     results = model.predict(source=image_path, save=False, conf=0.5)
     boxes = results[0].boxes
     names = results[0].names
