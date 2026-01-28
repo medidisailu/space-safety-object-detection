@@ -1,6 +1,15 @@
 import streamlit as st
 from PIL import Image
 import os
+import sys
+
+# Debug: Check if system libraries are available
+try:
+    import ctypes
+    ctypes.CDLL('libGL.so.1')
+    st.sidebar.success("✅ libGL.so.1 loaded successfully")
+except Exception as e:
+    st.sidebar.error(f"❌ libGL.so.1 not found: {e}")
 
 # Lazy load YOLO to avoid import errors on startup
 @st.cache_resource
