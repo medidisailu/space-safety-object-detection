@@ -1,7 +1,13 @@
-import streamlit as st
-from PIL import Image
-import os
 import sys
+import os
+from PIL import Image
+import streamlit as st
+try:
+    import cv2
+    st.write(f"OpenCV Version: {cv2.__version__}")
+except ImportError as e:
+    st.write(f"OpenCV Import Failed: {e}")
+
 
 # Debug: Check if system libraries are available
 try:
