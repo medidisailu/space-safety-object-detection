@@ -1,7 +1,9 @@
-import sys
-import os
-from PIL import Image
 import streamlit as st
+from ultralytics import YOLO
+import cv2
+import numpy as np
+from PIL import Image
+
 try:
     import cv2
     st.write(f"OpenCV Version: {cv2.__version__}")
