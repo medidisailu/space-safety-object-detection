@@ -272,19 +272,15 @@ st.markdown("""
 # -----------------------------
 # Model Logic
 # -----------------------------
-@st.cache_resource
-def load_model():
-    custom_model_path = "model.pt"
-    if os.path.exists(custom_model_path):
-        return YOLO(custom_model_path)
-    else:
-        return YOLO("yolov8s.pt")
+# -----------------------------
+# Configuration
+# -----------------------------
+# API Endpoint (Service #1)
+API_URL = "https://space-safety-object-detection-1.onrender.com/detect"
 
-try:
-    with st.spinner("Initializing AI Systems... (First load can take 1 min)"):
-        model = load_model()
-except Exception as e:
-    st.error(f"System Error: Model Loading Failed - {e}")
+import requests
+# Note: We rely on the API for inference now, saving memory on the Streamlit container.
+# No need to load YOLO locally.
 
 # -----------------------------
 # Layout
@@ -333,25 +329,37 @@ with col_main:
             scan_clicked = st.button("INITIATE SCAN ANALYSIS", use_container_width=True)
             
         if scan_clicked:
-            with st.spinner("SCANNING TARGET..."):
-                time.sleep(1) # Dramatic pause
-                results = model.predict(source=img_path, save=False, conf=0.4)
-                result = results[0]
-                
-                # Plot returns BGR, convert to RGB
-                annotated_img_bgr = result.plot()
-                annotated_img_rgb = cv2.cvtColor(annotated_img_bgr, cv2.COLOR_BGR2RGB)
-                
-                # Update Session State
-                st.session_state['analysis_done'] = True
-                st.session_state['last_result_img'] = annotated_img_rgb
-                
-                # Collect Data
-                detected_counts = {}
-                for cls_id in result.boxes.cls:
-                    name = result.names[int(cls_id)]
-                    detected_counts[name] = detected_counts.get(name, 0) + 1
-                st.session_state['counts'] = detected_counts
+            with st.spinner("SCANNING TARGET VIA CLOUD API..."):
+                try:
+                    # Send image to API
+                    with open(img_path, "rb") as f:
+                        files = {"file": f}
+                        response = requests.post(API_URL, files=files)
+                    
+                    if response.status_code == 200:
+                        data = response.json()
+                        if data.get("success"):
+                            # Decode the annotated image
+                            img_data = base64.b64decode(data["image_base64"])
+                            annotated_img = Image.open(io.BytesIO(img_data))
+                            
+                            # Update Session State
+                            st.session_state['analysis_done'] = True
+                            st.session_state['last_result_img'] = np.array(annotated_img) # Store as numpy for compatibility
+                            
+                            # Parse Detections for Counts
+                            detected_counts = {}
+                            if "detections" in data:
+                                for det in data["detections"]:
+                                    name = det["class"]
+                                    detected_counts[name] = detected_counts.get(name, 0) + 1
+                            st.session_state['counts'] = detected_counts
+                        else:
+                            st.error("API Error: Analysis failed.")
+                    else:
+                        st.error(f"API Connection Error: {response.status_code}")
+                except Exception as e:
+                    st.error(f"Connection Failed: {e}. Is the backend running?")
 
         # Main Display Area
         if st.session_state.get('analysis_done') and 'last_result_img' in st.session_state:
