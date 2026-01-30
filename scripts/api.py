@@ -23,7 +23,7 @@ try:
     model = YOLO("model.pt")
 except Exception as e:
     print(f"Error loading model: {e}")
-    model = YOLO("yolov8s.pt") # Fallback
+    model = YOLO("yolov8n.pt") # Fallback to NANO model for Free Tier (Low RAM)
 
 @app.get("/")
 def home():
