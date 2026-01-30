@@ -3,7 +3,7 @@ from ultralytics import YOLO
 # Load model
 # Load model
 import os
-model_path = "runs/detect/train6/weights/best.pt" 
+model_path = "model.pt" 
 if not os.path.exists(model_path):
     print(f"Warning: {model_path} not found. Using 'yolov8s.pt' instead.")
     model_path = "yolov8s.pt"
