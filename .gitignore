@@ -1,0 +1,18 @@
+# Python / Virtual Env
+__pycache__/
+*.py[cod]
+.venv
+env/
+venv/
+.env
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Project specific
+uploads/
+*.tmp
+
+# Data and Artifacts (Too large for git)
+data/
+runs/
