@@ -5,16 +5,20 @@ Detect safety-related objects (OxygenTank,NitrogenTank ,FirstAidBox ,FireAlarm ,
 [Click here to try the app](https://space-safety-object-detection-ksbwdfdkrr78cpywp6yztb.streamlit.app/)
 
 ## Overview
-This project demonstrates **real-time safety object detection** using **YOLOv8** integrated with a **Streamlit app**.  
-It was developed for hackathons and academic demos, focusing on detecting safety-related objects (like helmets, vests, or restricted items) with a polished user interface and reproducible workflow.
+This project demonstrates a **Cloud-Native Space Safety System** using a **Microservices Architecture**.
+It detects safety-related equipment (Oxygen Tanks, First Aid, etc.) on space stations using **YOLOv8**, accessible via a **Global Web Dashboard** and a **Mobile App**.
+
+## System Architecture
+*   **Backend (Service #1):** FastAPI server deployed on Render (Cloud). Handles AI Inference.
+*   **Frontend (Service #2):** Streamlit Web Dashboard deployed on Render. Serves as the Control Center.
+*   **Mobile App:** React Native (Expo) app for astronauts/rovers to verify objects in real-time.
 
 ## Features
-- 🔍 Object detection powered by YOLOv8  
-- 🎛️ Adjustable confidence threshold slider  
-- 🖼️ Image upload and prediction visualization  
-- 📊 Evaluation metrics reporting  
-- 🌐 Streamlit app for interactive demo  
-- 📂 Organized dataset preprocessing and training scripts  
+- 🌍 **Global Access**: Accessible on any network (4G/Wi-Fi) without tunneling.
+- 📱 **Mobile Integration**: Real-time object detection via Mobile Phone Camera.
+- 🚀 **Advanced UI**: Sci-Fi themed dashboard for the web interface.
+- ☁️ **Cloud AI**: Heavy lifting done on the server, keeping client devices fast.
+- 🔍 **YOLOv8 Power**: High-accuracy detection of 7 safety classes.  
 
 ## Project Structure
 ML2/
