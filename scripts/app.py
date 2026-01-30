@@ -281,7 +281,8 @@ def load_model():
         return YOLO("yolov8s.pt")
 
 try:
-    model = load_model()
+    with st.spinner("Initializing AI Systems... (First load can take 1 min)"):
+        model = load_model()
 except Exception as e:
     st.error(f"System Error: Model Loading Failed - {e}")
 
