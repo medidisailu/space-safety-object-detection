@@ -1,8 +1,11 @@
 import streamlit as st
+import os
+os.environ["OPENCV_LOG_LEVEL"] = "ERROR"
+os.environ["YOLO_VERBOSE"] = "False"
 from ultralytics import YOLO
 import numpy as np
 from PIL import Image
-import os
+
 
 # -----------------------------
 # Streamlit Page Setup
