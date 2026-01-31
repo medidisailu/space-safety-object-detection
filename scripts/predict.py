@@ -1,11 +1,18 @@
 from ultralytics import YOLO
 
 # Load model
-model = YOLO("D:/ml2/runs/space_station_safety/weights/best.pt")
+# Load model
+import os
+model_path = "model.pt" 
+if not os.path.exists(model_path):
+    print(f"Warning: {model_path} not found. Using 'yolov8s.pt' instead.")
+    model_path = "yolov8s.pt"
+
+model = YOLO(model_path)
 
 # Run prediction on test images
 results = model.predict(
-    source="D:/ml2/data/test/images",
+    source="data/test/images",
     imgsz=256,
     conf=0.15,
     augment=True

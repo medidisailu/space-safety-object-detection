@@ -3,11 +3,19 @@ import numpy as np
 import pandas as pd
 
 # ✅ Load trained model
-model = YOLO("D:/ml2/runs/detect/train/weights/best.pt")
+# ✅ Load trained model
+# Try to find the best model, or fallback
+import os
+model_path = "runs/detect/train6/weights/best.pt"
+if not os.path.exists(model_path):
+    print(f"Warning: {model_path} not found. Using 'yolov8s.pt' instead.")
+    model_path = "yolov8s.pt"
+
+model = YOLO(model_path)
 
 # ✅ Run validation on test split
 metrics = model.val(
-    data="D:/ml2/data/preprocessed/data.yaml",
+    data="data/preprocessed/data.yaml",
     split="test",
     conf=0.25
 )

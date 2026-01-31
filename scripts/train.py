@@ -10,7 +10,7 @@ from ultralytics import YOLO
 # -----------------------------
 # CONFIGURATION
 # -----------------------------
-DATA_YAML = "D:/ml2/data/data.yaml"   # Must point to preprocessed dataset
+DATA_YAML = "data/preprocessed/data.yaml"   # Must point to preprocessed dataset
 MODEL_NAME = "yolov8s.pt"             # Best balance for accuracy vs speed
 IMG_SIZE = 256                        # Same as preprocessing
 EPOCHS = 50                           # Safe for your PC

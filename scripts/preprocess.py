@@ -3,8 +3,9 @@ import cv2
 import shutil
 import numpy as np
 
-DATA_DIR = r"D:\ml2\data"
-OUT_DIR = r"D:\ml2\data\preprocessed"
+# relative paths
+DATA_DIR = os.path.join("data")
+OUT_DIR = os.path.join("data", "preprocessed")
 SPLITS = ["train", "valid", "test"]
 IMG_SIZE = 256
 
