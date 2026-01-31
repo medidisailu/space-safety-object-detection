@@ -1,10 +1,11 @@
 import streamlit as st
-from ultralytics import YOLO
-import cv2
 import numpy as np
 import os
 import base64
 import io
+
+# Note: We rely on the API for inference now to save memory.
+# If local YOLO is needed, import it inside a function.
 
 def get_image_base64(image_input):
     """Convert a PIL Image or Numpy array to base64 string"""
